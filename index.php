@@ -42,7 +42,6 @@ if( isset ($_POST["userid"]) ) {
       <td>Boite</td>
       <td>Colonne</td>
       <td>Ligne</td>
-      <td>Numero de fournee</td>
     </tr>
     <?php foreach ($alltsv as $k => $value): ?>
       <tr>
@@ -55,7 +54,6 @@ if( isset ($_POST["userid"]) ) {
         <td><? echo $value['box_nb'] ?></td>
         <td><? echo $value['row'] ?></td>
         <td><? echo $value['line'] ?></td>
-        <td><? echo $value['fournee'] ?></td>
       </tr>
     <?php endforeach; endif;?>
   </table>
