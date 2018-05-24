@@ -40,8 +40,8 @@ if( isset ($_POST["userid"]) ) {
       <td>Jeu de generation</td>
       <td>Numero de save</td>
       <td>Boite</td>
-      <td>Colonne</td>
       <td>Ligne</td>
+      <td>Colonne</td>
     </tr>
     <?php foreach ($alltsv as $k => $value): ?>
       <tr>
@@ -52,8 +52,8 @@ if( isset ($_POST["userid"]) ) {
         <td><? echo $value['gamename'] ?></td>
         <td><? echo $value['save_nb'] ?></td>
         <td><? echo $value['box_nb'] ?></td>
-        <td><? echo $value['row'] ?></td>
         <td><? echo $value['line'] ?></td>
+        <td><? echo $value['row'] ?></td>
       </tr>
     <?php endforeach; endif;?>
   </table>
