@@ -6,12 +6,12 @@ $allusers = pg_fetch_all($queryres);
 
 if( isset ($_POST["userid"]) ) {
   $userid = $_POST["userid"];
-  $tsvres = pg_query_params($conn, "select tu.name as username, tt.game_name as user_gamename, tt.doid as doid, tp.pokemon as pokemon, tp.game_name as gamename, tp.save_nb as save_nb, tp.box_nb as box_nb, tp.row as row, tp.line as line, tp.id_tsv as fournee ".
+  $tsvres = pg_query_params($conn, "select tu.name as username, tt.game_name as user_gamename, tt.doid as doid, tp.pokemon as pokemon, tp.game_name as gamename, tp.save_nb as save_nb, tp.box_nb as box_nb, tp.row as row, tp.line as line, tp.id_tsv as fournee, tt.gen as gen ".
                       "from tsv_user tu ".
                       "left join tsv_tsvnumber tt on tt.uuid = tu.uid ".
                       "left join tsv_pokemon tp on tp.esv = tt.tsvnumber and tp.gen = tt.gen ".
                       "where tu.uid = $1 ".
-                      "order by fournee desc, save_nb, box_nb, row, line", array($userid));
+                      "order by gen desc, fournee desc, save_nb, box_nb, row, line", array($userid));
   $alltsv = pg_fetch_all($tsvres);
 }
 ?>
