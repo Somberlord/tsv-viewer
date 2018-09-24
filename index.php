@@ -3,15 +3,25 @@ include 'secrets.php';
 $conn = pg_connect ( $conn_sentence );
 $queryres = pg_query($conn, "select * from tsv_user order by name");
 $allusers = pg_fetch_all($queryres);
+$queryresgn = pg_query($conn, "select distinct game_name from tsv_pokemon order by game_name");
+$allgns = pg_fetch_all($queryresgn);
 
 if( isset ($_POST["userid"]) ) {
   $userid = $_POST["userid"];
+  $gameuser = $_POST["gamename"];
+  $filtergame = "";
+  $params = array($userid);
+  if($gameuser != "") {
+      $filtergame = "and tt.game_name = $2 ";
+      $params = array($userid, $gameuser);
+  }
   $tsvres = pg_query_params($conn, "select tu.name as username, tt.game_name as user_gamename, tt.tsvnumber as tsvnumber, tp.pokemon as pokemon, tp.game_name as gamename, tp.save_nb as save_nb, tp.box_nb as box_nb, tp.row as row, tp.line as line, tp.id_tsv as fournee, tt.gen as gen ".
                       "from tsv_user tu ".
                       "left join tsv_tsvnumber tt on tt.uuid = tu.uid ".
                       "left join tsv_pokemon tp on tp.esv = tt.tsvnumber and tp.gen = tt.gen ".
                       "where tu.uid = $1 ".
-                      "order by gen desc, fournee desc, save_nb, box_nb, row, line", array($userid));
+                      $filtergame.
+                      "order by gen desc, fournee desc, save_nb, box_nb, row, line", $params);
   $alltsv = pg_fetch_all($tsvres);
 }
 ?>
@@ -25,6 +35,13 @@ if( isset ($_POST["userid"]) ) {
     <select name="userid"/><br/>
       <?php foreach ($allusers as $uid => $tsvvalue): ?>
         <option value="<? echo $tsvvalue['uid'] ?>"><? echo $tsvvalue['name'] ?></option>"
+      <?php endforeach; ?>
+    </select><br/>
+    Jeu :
+    <select name="gamename"/><br/>
+        <option value="">Toutes</option>"
+      <?php foreach ($allgns as $gnid => $gn): ?>
+        <option value="<? echo $gn['game_name'] ?>"><? echo $gn['game_name'] ?></option>"
       <?php endforeach; ?>
     </select><br/>
     <input type="submit" value="R&eacute;cup&eacute;rer les TSV"/><br/>
