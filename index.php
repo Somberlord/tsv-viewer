@@ -3,7 +3,7 @@ include 'secrets.php';
 $conn = pg_connect ( $conn_sentence );
 $queryres = pg_query($conn, "select * from tsv_user order by name");
 $allusers = pg_fetch_all($queryres);
-$queryresgn = pg_query($conn, "select distinct game_name from tsv_pokemon order by game_name");
+$queryresgn = pg_query($conn, "select distinct game_name from tsv_tsvnumber order by game_name");
 $allgns = pg_fetch_all($queryresgn);
 
 if( isset ($_POST["userid"]) ) {
