@@ -23,6 +23,15 @@ if( isset ($_POST["userid"]) ) {
                       $filtergame.
                       "order by gen desc, fournee desc, save_nb, box_nb, line, row", $params);
   $alltsv = pg_fetch_all($tsvres);
+  $totalsres = pg_query_params($conn, "select tt.game_name as gn, count(*) as nb ".
+                      "from tsv_user tu ".
+                      "left join tsv_tsvnumber tt on tt.uuid = tu.uid ".
+                      "left join tsv_pokemon tp on tp.esv = tt.tsvnumber and tp.gen = tt.gen ".
+                      "where tu.uid = $1 ".
+                      $filtergame.
+                      "group by gn ".
+                      "order by gn ", $params);
+  $alltotals = pg_fetch_all($totalsres);
 }
 ?>
 <html>
@@ -52,6 +61,10 @@ if( isset ($_POST["userid"]) ) {
   </form>
   <hr/>
   <?php if(isset ($alltsv)): ?>
+  <?php foreach ($alltotals as $k => $valuetot): ?>
+    Version <? echo $valuetot['gn'] ?>
+      Total : <? echo $valuetot['nb'] ?><br/>
+  <?php endforeach;?>
   <table>
     <tr>
       <td>Utilisateur</td>
