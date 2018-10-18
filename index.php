@@ -21,13 +21,17 @@ if( isset ($_POST["userid"]) ) {
                       "left join tsv_pokemon tp on tp.esv = tt.tsvnumber and tp.gen = tt.gen ".
                       "where tu.uid = $1 ".
                       $filtergame.
-                      "order by gen desc, fournee desc, save_nb, box_nb, row, line", $params);
+                      "order by gen desc, fournee desc, save_nb, box_nb, line, row", $params);
   $alltsv = pg_fetch_all($tsvres);
 }
 ?>
 <html>
 <head>
   <title>TSV 3DSInBordeaux</title>
+  <style>
+    tr:nth-child(even) {background: #CCC}
+    tr:nth-child(odd) {background: #FFF}
+  </style>
 </head>
 <body>
   <form action="#" method="post">
