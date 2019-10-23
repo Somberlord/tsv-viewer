@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <?php
 include 'secrets.php';
 $conn = pg_connect ( $conn_sentence );
@@ -71,11 +72,11 @@ if( isset ($_POST["userid"]) ) {
       <td>Jeu utilisateur</td>
       <td>TSV Utilisateur</td>
       <td>Nom du pokemon</td>
-      <td>Jeu de generation</td>
-      <td>Numero de save</td>
+      <td>Save</td>
       <td>Boite</td>
       <td>Ligne</td>
       <td>Colonne</td>
+      <td>Jeu de generation</td>
     </tr>
     <?php foreach ($alltsv as $k => $value): ?>
       <tr>
@@ -83,11 +84,11 @@ if( isset ($_POST["userid"]) ) {
         <td><? echo $value['user_gamename'] ?></td>
         <td><? echo $value['tsvnumber'] ?></td>
         <td><? echo $value['pokemon'] ?></td>
-        <td><? echo $value['gamename'] ?></td>
         <td><? echo $value['save_nb'] ?></td>
         <td><? echo $value['box_nb'] ?></td>
         <td><? echo $value['line'] ?></td>
         <td><? echo $value['row'] ?></td>
+        <td><? echo $value['gamename'] ?></td>
       </tr>
     <?php endforeach; endif;?>
   </table>
