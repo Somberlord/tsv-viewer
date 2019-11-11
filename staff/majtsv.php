@@ -19,9 +19,13 @@ if( isset ($_POST["newname"]) ) {
   $generation = $_POST["gen"];
   $doid = $_POST["doid"];
   $gamename = $_POST["gamename"];
+  $nickname = "";
+  if(isset($_POST["nickname"])) {
+    $nickname = $_POST["nickname"];
+  }
   $queryresinsert = pg_query_params($conn,
-                "insert into tsv_tsvnumber(uuid, tsvnumber, gen, DOID, game_name) values($1, $2, $3, $4, $5)",
-                array($userid, $newtsv, $generation, $doid, $gamename));
+                "insert into tsv_tsvnumber(uuid, tsvnumber, gen, DOID, game_name, nickname) values($1, $2, $3, $4, $5, $6)",
+                array($userid, $newtsv, $generation, $doid, $gamename, $nickname));
   if($queryresinsert === FALSE) {
     echo "Erreur lors de l'ajout";
   } else {
@@ -52,6 +56,7 @@ if( isset ($_POST["newname"]) ) {
     G&eacute;n&eacute;ration : <input type="number" name="gen"/><br/>
     DO ID : <input type="number" name="doid"/><br/>
     Nom cartouche : <input type="text" name="gamename"/><br/>
+    Pseudo : <input type="text" name="nickname"/><br/>
     <br/>
     <input type="submit" value="Ajouter nouveau tsv"/><br/>
   </form>

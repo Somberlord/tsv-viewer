@@ -38,58 +38,87 @@ if( isset ($_POST["userid"]) ) {
 <html>
 <head>
   <title>TSV 3DSInBordeaux</title>
-  <style>
-    tr:nth-child(even) {background: #CCC}
-    tr:nth-child(odd) {background: #FFF}
-  </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 </head>
 <body>
-  <form action="#" method="post">
-    Nom :
-    <select name="userid"/><br/>
-      <?php foreach ($allusers as $uid => $tsvvalue): ?>
-        <option value="<? echo $tsvvalue['uid'] ?>"><? echo $tsvvalue['name'] ?></option>"
-      <?php endforeach; ?>
-    </select><br/>
-    Jeu :
-    <select name="gamename"/><br/>
-        <option value="">Toutes</option>"
-      <?php foreach ($allgns as $gnid => $gn): ?>
-        <option value="<? echo $gn['game_name'] ?>"><? echo $gn['game_name'] ?></option>"
-      <?php endforeach; ?>
-    </select><br/>
-    <input type="submit" value="R&eacute;cup&eacute;rer les TSV"/><br/>
-  </form>
-  <hr/>
-  <?php if(isset ($alltsv)): ?>
-  <?php foreach ($alltotals as $k => $valuetot): ?>
-    Version <? echo $valuetot['gn'] ?>
-      Total : <? echo $valuetot['nb'] ?><br/>
-  <?php endforeach;?>
-  <table>
-    <tr>
-      <td>Utilisateur</td>
-      <td>Jeu utilisateur</td>
-      <td>TSV Utilisateur</td>
-      <td>Nom du pokemon</td>
-      <td>Save</td>
-      <td>Boite</td>
-      <td>Ligne</td>
-      <td>Colonne</td>
-      <td>Jeu de generation</td>
-    </tr>
-    <?php foreach ($alltsv as $k => $value): ?>
-      <tr>
-        <td><? echo $value['username'] ?></td>
-        <td><? echo $value['user_gamename'] ?></td>
-        <td><? echo $value['tsvnumber'] ?></td>
-        <td><? echo $value['pokemon'] ?></td>
-        <td><? echo $value['save_nb'] ?></td>
-        <td><? echo $value['box_nb'] ?></td>
-        <td><? echo $value['line'] ?></td>
-        <td><? echo $value['row'] ?></td>
-        <td><? echo $value['gamename'] ?></td>
-      </tr>
-    <?php endforeach; endif;?>
-  </table>
+  <section class="section">
+    <div class="container">
+      <form action="#" method="post">
+        <div class="field">
+          <label class="field-label">Nom : </label>
+          <div class="field-body">
+            <div class="control">
+              <div class="select is-fullwidth">
+                <select name="userid">
+                  <?php foreach ($allusers as $uid => $tsvvalue): ?>
+                    <option value="<? echo $tsvvalue['uid'] ?>"><? echo $tsvvalue['name'] ?></option>"
+                  <?php endforeach; ?>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label class="field-label">Jeu : </label>
+          <div class="field-body">
+            <div class="control">
+              <div class="select is-fullwidth">
+              <select name="gamename"/><br/>
+                  <option value="">Toutes</option>"
+                <?php foreach ($allgns as $gnid => $gn): ?>
+                  <option value="<? echo $gn['game_name'] ?>"><? echo $gn['game_name'] ?></option>"
+                <?php endforeach; ?>
+              </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <div class="control">
+            <input class="button is-link" type="submit" value="R&eacute;cup&eacute;rer les TSV"/>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <?php if(isset ($alltsv)): ?>
+      <?php foreach ($alltotals as $k => $valuetot): ?>
+      <div class="content">Version <? echo $valuetot['gn'] ?>
+        Total : <? echo $valuetot['nb'] ?></div>
+      <?php endforeach;?>
+      <table class="table is-hoverable is-narrow is-striped">
+        <thead>
+          <tr>
+            <th>Utilisateur</th>
+            <th>Jeu utilisateur</th>
+            <th>TSV Utilisateur</th>
+            <th>Nom du pokemon</th>
+            <th>Save</th>
+            <th>Boite</th>
+            <th>Ligne</th>
+            <th>Colonne</th>
+            <th>Jeu de generation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php foreach ($alltsv as $k => $value): ?>
+            <tr>
+              <td><? echo $value['username'] ?></td>
+              <td><? echo $value['user_gamename'] ?></td>
+              <td><? echo $value['tsvnumber'] ?></td>
+              <td><? echo $value['pokemon'] ?></td>
+              <td><? echo $value['save_nb'] ?></td>
+              <td><? echo $value['box_nb'] ?></td>
+              <td><? echo $value['line'] ?></td>
+              <td><? echo $value['row'] ?></td>
+              <td><? echo $value['gamename'] ?></td>
+            </tr>
+          <?php endforeach; endif;?>
+        </tbody>
+      </table>
+    </div>
+  <section>
 </body>

@@ -16,6 +16,7 @@ $allusers = pg_fetch_all($queryres);
       <th>Jeu</th>
       <th>Gen</th>
       <th>ID</th>
+      <th>Pseudo</th>
     </tr>
 
     <?php foreach ($allusers as $uid => $value): ?>
@@ -25,6 +26,7 @@ $allusers = pg_fetch_all($queryres);
         <td><? echo $value['game_name'] ?></td>
         <td><? echo $value['gen'] ?></td>
         <td><? echo $value['doid'] ?></td>
+        <td><? echo $value['nickname'] ?></td>
       </tr>
     <?php endforeach; ?>
   </table>
